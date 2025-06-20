@@ -1,0 +1,252 @@
+import React, { useRef, useState } from 'react';
+import { motion } from 'framer-motion';
+import { Calendar, MapPin, Building } from 'lucide-react';
+
+const ExperienceSection: React.FC = () => {
+  const experiences = [
+    {
+      id: 1,
+      title: 'Senior Full Stack Developer',
+      company: 'TechCorp Solutions',
+      location: 'San Francisco, CA',
+      period: '2022 - Present',
+      achievements: [
+        'Improved application performance by 40%',
+        'Led team of 5 developers',
+        'Implemented CI/CD pipeline reducing deployment time by 60%'
+      ],
+      technologies: ['React', 'Node.js', 'MongoDB', 'AWS', 'Docker', 'TypeScript'],
+      logo: '🏢'
+    },
+    {
+      id: 2,
+      title: 'Full Stack Developer',
+      company: 'Digital Innovation Lab',
+      location: 'New York, NY',
+      period: '2020 - 2022',
+      achievements: [
+        'Delivered 15+ successful projects',
+        'Reduced bug reports by 50%',
+        'Implemented responsive designs for mobile-first approach'
+      ],
+      technologies: ['React', 'Express.js', 'PostgreSQL', 'Redux', 'Tailwind CSS'],
+      logo: '⚡'
+    },
+    {
+      id: 3,
+      title: 'Frontend Developer',
+      company: 'StartupXYZ',
+      location: 'Austin, TX',
+      period: '2019 - 2020',
+      achievements: [
+        'Increased user engagement by 35%',
+        'Optimized website loading speed by 45%',
+        'Implemented accessibility standards (WCAG 2.1)'
+      ],
+      technologies: ['Vue.js', 'JavaScript', 'SASS', 'Webpack', 'Jest'],
+      logo: '🚀'
+    },
+    {
+      id: 4,
+      title: 'Junior Web Developer',
+      company: 'WebFlow Agency',
+      location: 'Remote',
+      period: '2018 - 2019',
+      achievements: [
+        'Completed 20+ client websites',
+        'Learned React, Node.js, and modern web stack',
+        'Maintained 99% client satisfaction rate'
+      ],
+      technologies: ['HTML', 'CSS', 'JavaScript', 'jQuery', 'Bootstrap'],
+      logo: '💻'
+    }
+  ];
+
+  const ExperienceCard = ({ experience, index }: { experience: any; index: number }) => {
+    const cardRef = useRef<HTMLDivElement>(null);
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const [isHovered, setIsHovered] = useState(false);
+    const [hoveredTech, setHoveredTech] = useState<string | null>(null);
+
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+      if (!cardRef.current) return;
+      
+      const rect = cardRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      setMousePosition({ x, y });
+    };
+
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: index * 0.1, ease: 'easeOut' }}
+        viewport={{ once: true }}
+        className="group relative"
+      >
+        <div
+          ref={cardRef}
+          onMouseMove={handleMouseMove}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          className="relative bg-gray-900 p-6 rounded-2xl border border-gray-800 h-full transition-all duration-300 shadow-2xl"
+          style={{
+            background: isHovered
+              ? `radial-gradient(400px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(147, 51, 234, 0.4), rgba(59, 130, 246, 0.2), transparent 70%)`
+              : 'rgb(17, 24, 39)',
+          }}
+        >
+          <div className="flex items-start gap-4 mb-4">
+            <div className="text-3xl">{experience.logo}</div>
+            <div className="flex-1">
+              <h3 className="text-xl font-bold text-white mb-1 group-hover:text-purple-400 transition-colors">
+                {experience.title}
+              </h3>
+              
+              <div className="flex items-center gap-2 text-blue-400 font-semibold mb-2">
+                <Building className="w-4 h-4" />
+                <span>{experience.company}</span>
+              </div>
+
+              <div className="flex items-center text-sm text-gray-400 gap-4 mb-3">
+                <div className="flex items-center gap-1">
+                  <Calendar className="w-4 h-4" />
+                  <span>{experience.period}</span>
+                </div>
+                <div className="flex items-center gap-1">
+                  <MapPin className="w-4 h-4" />
+                  <span>{experience.location}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <div>
+              <h4 className="font-semibold text-white text-sm mb-2">Key Achievements:</h4>
+              <ul className="space-y-1">
+                {experience.achievements.map((achievement: string, achievementIndex: number) => (
+                  <li
+                    key={achievementIndex}
+                    className="text-sm text-gray-400 flex items-start gap-2"
+                  >
+                    <span className="w-1.5 h-1.5 bg-purple-400 rounded-full mt-2 flex-shrink-0"></span>
+                    {achievement}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div>
+              <h4 className="font-semibold text-white text-sm mb-3">Technologies Used:</h4>
+              <div className="flex flex-wrap gap-2">
+                {experience.technologies.map((tech: string, techIndex: number) => (
+                  <motion.span
+                    key={techIndex}
+                    onMouseEnter={() => setHoveredTech(tech)}
+                    onMouseLeave={() => setHoveredTech(null)}
+                    whileHover={{ 
+                      scale: 1.1,
+                      backgroundColor: 'rgba(59, 130, 246, 0.2)',
+                      color: '#60a5fa'
+                    }}
+                    transition={{ duration: 0.2 }}
+                    className={`px-3 py-1 bg-gray-800 text-gray-300 rounded-full text-xs font-medium cursor-default transition-all duration-200 ${
+                      hoveredTech === tech ? 'shadow-lg' : ''
+                    }`}
+                  >
+                    {tech}
+                  </motion.span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    );
+  };
+
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2
+      }
+    }
+  };
+
+  return (
+    <section id="experience" className="py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-hidden">
+      {/* Enhanced Background Effects */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-pink-900/20"></div>
+        
+        {/* More Visible Floating Particles */}
+        {[...Array(40)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1.5 h-1.5 bg-pink-400/70 rounded-full shadow-sm"
+            initial={{
+              x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200),
+              y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800),
+            }}
+            animate={{
+              x: [
+                Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200),
+                Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200),
+                Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200)
+              ],
+              y: [
+                Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800),
+                Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800),
+                Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800)
+              ],
+            }}
+            transition={{
+              duration: 25, // Fixed duration
+              repeat: Infinity,
+              repeatType: 'loop',
+              ease: 'linear',
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+              My Work Experience
+            </span>
+          </h2>
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+            My journey through different roles and companies, building expertise in modern web development.
+          </p>
+        </motion.div>
+
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          className="grid grid-cols-1 md:grid-cols-2 gap-8"
+        >
+          {experiences.map((experience, index) => (
+            <ExperienceCard key={experience.id} experience={experience} index={index} />
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+export default ExperienceSection;

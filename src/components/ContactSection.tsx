@@ -1,0 +1,322 @@
+import React, { useRef, useState } from 'react';
+import { motion } from 'framer-motion';
+import { Mail, MapPin, Zap, Github, Linkedin, Send, Phone, Instagram } from 'lucide-react';
+
+const ContactSection: React.FC = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // Create mailto link with form data
+    const subject = encodeURIComponent(`Portfolio Contact from ${formData.name}`);
+    const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
+    const mailtoLink = `mailto:behaniatharva@gmail.com?subject=${subject}&body=${body}`;
+    
+    // Open default email client
+    window.location.href = mailtoLink;
+    
+    // Reset form
+    setFormData({ name: '', email: '', message: '' });
+  };
+
+  const ContactCard = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
+    const cardRef = useRef<HTMLDivElement>(null);
+    const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+    const [isHovered, setIsHovered] = useState(false);
+
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+      if (!cardRef.current) return;
+      
+      const rect = cardRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      setMousePosition({ x, y });
+    };
+
+    return (
+      <div
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        className={`relative bg-gray-900 rounded-2xl border border-gray-800 transition-all duration-300 shadow-2xl ${className}`}
+        style={{
+          background: isHovered
+            ? `radial-gradient(400px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(147, 51, 234, 0.4), rgba(59, 130, 246, 0.2), transparent 70%)`
+            : 'rgb(17, 24, 39)',
+        }}
+      >
+        {children}
+      </div>
+    );
+  };
+
+  const SocialIcon = ({ icon: Icon, href, label, color }: { icon: any; href: string; label: string; color: string }) => {
+    const [showTooltip, setShowTooltip] = useState(false);
+
+    return (
+      <div className="relative">
+        <motion.a
+          href={href}
+          onMouseEnter={() => setShowTooltip(true)}
+          onMouseLeave={() => setShowTooltip(false)}
+          whileHover={{ 
+            scale: 1.3,
+            rotateY: 15,
+            rotateX: 10,
+            boxShadow: "0 8px 25px rgba(147, 51, 234, 0.6)",
+            background: "linear-gradient(135deg, rgba(147, 51, 234, 0.2), rgba(59, 130, 246, 0.2))"
+          }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ 
+            type: 'spring', 
+            stiffness: 400, 
+            damping: 25,
+            duration: 0.2
+          }}
+          className={`p-3 bg-gray-800 rounded-full text-gray-400 transition-colors ${color} block`}
+          style={{ transformStyle: 'preserve-3d' }}
+          aria-label={label}
+        >
+          <Icon className="w-5 h-5" />
+        </motion.a>
+        
+        {/* Tooltip */}
+        {showTooltip && (
+          <motion.div
+            initial={{ opacity: 0, y: 10, scale: 0.8 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 10, scale: 0.8 }}
+            transition={{ duration: 0.2 }}
+            className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-3 py-1 rounded-lg text-sm font-medium border border-gray-700 shadow-lg z-10"
+          >
+            {label}
+            <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
+          </motion.div>
+        )}
+      </div>
+    );
+  };
+
+  const socialLinks = [
+    { icon: Github, href: '#', label: 'GitHub', color: 'hover:text-gray-300' },
+    { icon: Linkedin, href: '#', label: 'LinkedIn', color: 'hover:text-blue-400' },
+    { icon: Instagram, href: '#', label: 'Instagram', color: 'hover:text-pink-400' },
+  ];
+
+  return (
+    <section id="contact" className="py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-hidden">
+      {/* Enhanced Background Effects */}
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-pink-900/20"></div>
+        
+        {/* More Visible Floating Particles */}
+        {[...Array(60)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1.5 h-1.5 bg-purple-400/70 rounded-full shadow-sm"
+            initial={{
+              x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200),
+              y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800),
+            }}
+            animate={{
+              x: [
+                Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200),
+                Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200),
+                Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200)
+              ],
+              y: [
+                Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800),
+                Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800),
+                Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800)
+              ],
+            }}
+            transition={{
+              duration: 25, // Fixed duration
+              repeat: Infinity,
+              repeatType: 'loop',
+              ease: 'linear',
+            }}
+          />
+        ))}
+      </div>
+
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">Get In Touch</span>
+          </h2>
+          <p className="text-xl text-gray-400 max-w-2xl mx-auto">
+            Ready to bring your ideas to life? Let's collaborate and create something amazing together.
+          </p>
+        </motion.div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Contact Information Card */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <ContactCard className="p-8 h-full">
+              <h3 className="text-2xl font-bold text-purple-400 mb-8">Contact Information</h3>
+              
+              <div className="space-y-6 mb-8">
+                <div className="flex items-center gap-4">
+                  <div className="p-3 bg-purple-500/20 rounded-full">
+                    <Mail className="w-6 h-6 text-purple-400" />
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-sm">Email</p>
+                    <p className="text-white font-medium">behaniatharva@gmail.com</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <div className="p-3 bg-green-500/20 rounded-full">
+                    <Phone className="w-6 h-6 text-green-400" />
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-sm">Phone</p>
+                    <p className="text-white font-medium">+91 XXXXX XXXXX</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <div className="p-3 bg-blue-500/20 rounded-full">
+                    <MapPin className="w-6 h-6 text-blue-400" />
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-sm">Location</p>
+                    <p className="text-white font-medium">San Francisco, CA</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <div className="p-3 bg-green-500/20 rounded-full">
+                    <Zap className="w-6 h-6 text-green-400" />
+                  </div>
+                  <div>
+                    <p className="text-gray-400 text-sm">Availability</p>
+                    <p className="text-white font-medium">Open to full-time and freelance opportunities</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="border-t border-gray-800 pt-6">
+                <p className="text-white font-medium mb-4">Let's build something awesome together!</p>
+                
+                <div className="flex gap-4">
+                  {socialLinks.map((social, index) => (
+                    <SocialIcon
+                      key={social.label}
+                      icon={social.icon}
+                      href={social.href}
+                      label={social.label}
+                      color={social.color}
+                    />
+                  ))}
+                </div>
+              </div>
+            </ContactCard>
+          </motion.div>
+
+          {/* Contact Form Card */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <ContactCard className="p-8 h-full">
+              <h3 className="text-2xl font-bold text-purple-400 mb-8">Send a Message</h3>
+              
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <label htmlFor="name" className="block text-white font-medium mb-2">
+                    Name
+                  </label>
+                  <input
+                    type="text"
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400 transition-colors"
+                    placeholder="Your name"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="email" className="block text-white font-medium mb-2">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400 transition-colors"
+                    placeholder="your.email@example.com"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="message" className="block text-white font-medium mb-2">
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    required
+                    rows={5}
+                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400 transition-colors resize-none"
+                    placeholder="Tell me about your project..."
+                  />
+                </div>
+
+                <motion.button
+                  type="submit"
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="w-full py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex items-center justify-center gap-2"
+                >
+                  <Send className="w-5 h-5" />
+                  Send Message
+                </motion.button>
+              </form>
+            </ContactCard>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
+export default ContactSection;
