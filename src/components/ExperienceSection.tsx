@@ -180,39 +180,116 @@ const ExperienceSection: React.FC = () => {
 
   return (
     <section id="experience" className="py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-hidden">
-      {/* Enhanced Background Effects */}
+      {/* Optimized Background Effects */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-pink-900/20"></div>
         
-        {/* More Visible Floating Particles */}
-        {[...Array(40)].map((_, i) => (
+        {/* Reduced Floating Particles */}
+        {[...Array(45)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute w-1.5 h-1.5 bg-pink-400/70 rounded-full shadow-sm"
             initial={{
-              x: Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200),
-              y: Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800),
+              x: Math.random() * 1400,
+              y: Math.random() * 1000,
             }}
             animate={{
               x: [
-                Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200),
-                Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200),
-                Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200)
+                Math.random() * 1400,
+                Math.random() * 1400,
+                Math.random() * 1400,
+                Math.random() * 1400
               ],
               y: [
-                Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800),
-                Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800),
-                Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800)
+                Math.random() * 1000,
+                Math.random() * 1000,
+                Math.random() * 1000,
+                Math.random() * 1000
               ],
             }}
             transition={{
-              duration: 25, // Fixed duration
+              duration: 25,
               repeat: Infinity,
               repeatType: 'loop',
               ease: 'linear',
+              delay: i * 0.1,
             }}
           />
         ))}
+
+        {/* Smaller Particles */}
+        {[...Array(30)].map((_, i) => (
+          <motion.div
+            key={`small-${i}`}
+            className="absolute w-1 h-1 bg-cyan-400/50 rounded-full shadow-sm"
+            initial={{
+              x: Math.random() * 1400,
+              y: Math.random() * 1000,
+            }}
+            animate={{
+              x: [
+                Math.random() * 1400,
+                Math.random() * 1400,
+                Math.random() * 1400
+              ],
+              y: [
+                Math.random() * 1000,
+                Math.random() * 1000,
+                Math.random() * 1000
+              ],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              repeatType: 'loop',
+              ease: 'linear',
+              delay: i * 0.15,
+            }}
+          />
+        ))}
+
+        {/* Gradient Orbs */}
+        <motion.div
+          className="absolute w-76 h-76 bg-gradient-to-r from-pink-500/25 to-purple-500/25 rounded-full blur-3xl"
+          animate={{
+            x: [300, 700, 200, 500, 300],
+            y: [200, 150, 600, 350, 200],
+            scale: [1, 1.4, 0.6, 1.2, 1],
+          }}
+          transition={{
+            duration: 27,
+            repeat: Infinity,
+            ease: 'linear',
+          }}
+        />
+        
+        <motion.div
+          className="absolute w-68 h-68 bg-gradient-to-r from-cyan-500/25 to-blue-500/25 rounded-full blur-3xl"
+          animate={{
+            x: [1000, 800, 1200, 900, 1000],
+            y: [400, 700, 300, 550, 400],
+            scale: [1, 0.7, 1.5, 0.9, 1],
+          }}
+          transition={{
+            duration: 23,
+            repeat: Infinity,
+            ease: 'linear',
+          }}
+        />
+
+        <motion.div
+          className="absolute w-60 h-60 bg-gradient-to-r from-indigo-500/20 to-pink-500/20 rounded-full blur-3xl"
+          animate={{
+            x: [600, 400, 900, 550, 600],
+            y: [500, 300, 800, 450, 500],
+            scale: [1, 1.3, 0.8, 1.4, 1],
+          }}
+          transition={{
+            duration: 29,
+            repeat: Infinity,
+            ease: 'linear',
+          }}
+        />
       </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">

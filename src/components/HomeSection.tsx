@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Github, Linkedin, Instagram, Code } from 'lucide-react';
 
@@ -12,37 +12,6 @@ const HomeSection: React.FC = () => {
   
   const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ['17.5deg', '-17.5deg']);
   const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ['-17.5deg', '17.5deg']);
-
-  // Typewriter effect state
-  const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
-  const [displayedText, setDisplayedText] = useState('');
-  const [isDeleting, setIsDeleting] = useState(false);
-  
-  const roles = ['Full Stack Developer', 'Software Engineer', 'Programmer'];
-
-  useEffect(() => {
-    const currentRole = roles[currentRoleIndex];
-    const typingSpeed = isDeleting ? 50 : 100;
-    
-    const timeout = setTimeout(() => {
-      if (!isDeleting) {
-        if (displayedText.length < currentRole.length) {
-          setDisplayedText(currentRole.slice(0, displayedText.length + 1));
-        } else {
-          setTimeout(() => setIsDeleting(true), 2000);
-        }
-      } else {
-        if (displayedText.length > 0) {
-          setDisplayedText(currentRole.slice(0, displayedText.length - 1));
-        } else {
-          setIsDeleting(false);
-          setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
-        }
-      }
-    }, typingSpeed);
-
-    return () => clearTimeout(timeout);
-  }, [displayedText, isDeleting, currentRoleIndex, roles]);
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = ref.current?.getBoundingClientRect();
@@ -84,9 +53,9 @@ const HomeSection: React.FC = () => {
           whileTap={{ scale: 0.95 }}
           transition={{ 
             type: 'spring', 
-            stiffness: 300, 
-            damping: 30,
-            duration: 0.3
+            stiffness: 400, 
+            damping: 25,
+            duration: 0.2
           }}
           className="p-4 bg-gray-800/50 backdrop-blur-sm rounded-full shadow-lg border border-gray-700/50 block"
           style={{ transformStyle: 'preserve-3d' }}
@@ -113,59 +82,92 @@ const HomeSection: React.FC = () => {
   };
 
   const socialLinks = [
-    { icon: Github, href: '#', label: 'GitHub' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn' },
-    { icon: Instagram, href: '#', label: 'Instagram' },
-    { icon: Code, href: '#', label: 'LeetCode' },
+    { icon: Github, href: 'https://github.com/AtharvaB-22', label: 'GitHub' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/atharvabehani/', label: 'LinkedIn' },
+    { icon: Instagram, href: 'https://www.instagram.com/atharva_behani/', label: 'Instagram' },
+    { icon: Code, href: 'https://leetcode.com/u/behaniatharva/', label: 'LeetCode' },
   ];
 
   return (
     <section id="home" className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-hidden pt-16">
-      {/* Enhanced Animated Background */}
+      {/* Optimized Background Animations */}
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/30 via-purple-900/30 to-pink-900/30"></div>
         
-        {/* Fixed Speed Floating Particles */}
-        {[...Array(80)].map((_, i) => {
-          // Pre-calculate fixed positions for consistent movement
-          const startX = Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200);
-          const startY = Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800);
-          const endX = Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200);
-          const endY = Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800);
-          const midX = Math.random() * (typeof window !== 'undefined' ? window.innerWidth : 1200);
-          const midY = Math.random() * (typeof window !== 'undefined' ? window.innerHeight : 800);
-          
-          return (
-            <motion.div
-              key={i}
-              className="absolute w-2 h-2 bg-blue-400/60 rounded-full shadow-lg"
-              initial={{ x: startX, y: startY }}
-              animate={{
-                x: [startX, midX, endX, startX],
-                y: [startY, midY, endY, startY],
-              }}
-              transition={{
-                duration: 25, // Fixed duration for all particles
-                repeat: Infinity,
-                repeatType: 'loop',
-                ease: 'linear',
-                delay: i * 0.1, // Stagger start times
-              }}
-            />
-          );
-        })}
+        {/* Reduced Floating Particles for Performance */}
+        {[...Array(60)].map((_, i) => (
+          <motion.div
+            key={`home-particle-${i}`}
+            className="absolute w-1.5 h-1.5 bg-blue-400/70 rounded-full shadow-sm"
+            initial={{
+              x: Math.random() * 1400,
+              y: Math.random() * 1000,
+            }}
+            animate={{
+              x: [
+                Math.random() * 1400,
+                Math.random() * 1400,
+                Math.random() * 1400,
+                Math.random() * 1400
+              ],
+              y: [
+                Math.random() * 1000,
+                Math.random() * 1000,
+                Math.random() * 1000,
+                Math.random() * 1000
+              ],
+            }}
+            transition={{
+              duration: 25,
+              repeat: Infinity,
+              repeatType: 'loop',
+              ease: 'linear',
+              delay: i * 0.1,
+            }}
+          />
+        ))}
 
-        {/* Fixed Speed Gradient Orbs */}
+        {/* Smaller Particles */}
+        {[...Array(40)].map((_, i) => (
+          <motion.div
+            key={`home-small-particle-${i}`}
+            className="absolute w-1 h-1 bg-purple-400/50 rounded-full shadow-sm"
+            initial={{
+              x: Math.random() * 1400,
+              y: Math.random() * 1000,
+            }}
+            animate={{
+              x: [
+                Math.random() * 1400,
+                Math.random() * 1400,
+                Math.random() * 1400
+              ],
+              y: [
+                Math.random() * 1000,
+                Math.random() * 1000,
+                Math.random() * 1000
+              ],
+            }}
+            transition={{
+              duration: 20,
+              repeat: Infinity,
+              repeatType: 'loop',
+              ease: 'linear',
+              delay: i * 0.15,
+            }}
+          />
+        ))}
+
+        {/* Gradient Orbs */}
         <motion.div
           className="absolute w-96 h-96 bg-gradient-to-r from-blue-500/30 to-purple-500/30 rounded-full blur-3xl"
-          initial={{ x: 100, y: 100 }}
           animate={{
-            x: [100, 300, 50, 200, 100],
-            y: [100, 50, 300, 150, 100],
+            x: [100, 400, 50, 300, 100],
+            y: [100, 50, 400, 150, 100],
             scale: [1, 1.2, 0.8, 1.1, 1],
           }}
           transition={{
-            duration: 30, // Fixed duration
+            duration: 25,
             repeat: Infinity,
             ease: 'linear',
           }}
@@ -173,14 +175,13 @@ const HomeSection: React.FC = () => {
         
         <motion.div
           className="absolute w-80 h-80 bg-gradient-to-r from-purple-500/30 to-pink-500/30 rounded-full blur-3xl"
-          initial={{ x: 800, y: 200 }}
           animate={{
-            x: [800, 600, 900, 700, 800],
-            y: [200, 400, 100, 300, 200],
+            x: [800, 600, 1000, 700, 800],
+            y: [200, 500, 100, 350, 200],
             scale: [1, 0.8, 1.3, 0.9, 1],
           }}
           transition={{
-            duration: 35, // Fixed duration
+            duration: 20,
             repeat: Infinity,
             ease: 'linear',
           }}
@@ -188,14 +189,13 @@ const HomeSection: React.FC = () => {
 
         <motion.div
           className="absolute w-64 h-64 bg-gradient-to-r from-pink-500/20 to-blue-500/20 rounded-full blur-3xl"
-          initial={{ x: 400, y: 300 }}
           animate={{
-            x: [400, 200, 600, 350, 400],
-            y: [300, 100, 500, 250, 300],
+            x: [400, 200, 700, 350, 400],
+            y: [300, 100, 600, 250, 300],
             scale: [1, 1.1, 0.9, 1.2, 1],
           }}
           transition={{
-            duration: 28, // Fixed duration
+            duration: 23,
             repeat: Infinity,
             ease: 'linear',
           }}
@@ -236,12 +236,11 @@ const HomeSection: React.FC = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.6 }}
-                className="text-xl md:text-2xl mb-2 h-8"
+                className="text-xl md:text-2xl mb-2"
               >
-                <span className="text-lg text-gray-400">I am a </span>
+                <span className="text-gray-400">I am a </span>
                 <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent font-semibold">
-                  {displayedText}
-                  <span className="animate-pulse">|</span>
+                  Software Engineer
                 </span>
               </motion.div>
             </div>
