@@ -260,13 +260,14 @@ const HomeSection: React.FC = () => {
               transition={{ delay: 0.6, duration: 0.8 }}
             >
               <motion.button
-                whileHover={{ 
-                  scale: 1.05, 
-                  boxShadow: "0 8px 25px rgba(147, 51, 234, 0.4)" 
+                whileHover={{
+                  scale: 1.05,
+                  boxShadow: "0 8px 25px rgba(147, 51, 234, 0.4)"
                 }}
                 whileTap={{ scale: 0.95 }}
                 transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                 className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold text-lg rounded-full shadow-lg hover:shadow-xl transition-shadow duration-300"
+                onClick={() => window.open('https://drive.google.com/file/d/1os9o03bBKF9ggT8P5NAuJbI3Mwot9U6j/view?usp=sharing', '_blank')}
               >
                 Check Resume
               </motion.button>
@@ -312,7 +313,7 @@ const HomeSection: React.FC = () => {
               <div className="w-full h-full rounded-full bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 p-1">
                 <div className="w-full h-full rounded-full bg-black flex items-center justify-center text-8xl font-bold text-gray-200 overflow-hidden">
                   <img
-                    src="https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=800"
+                    src="/src/assets/Portfolio photo.png"
                     alt="Profile"
                     className="w-full h-full object-cover rounded-full"
                   />
@@ -334,3 +335,4 @@ const HomeSection: React.FC = () => {
 };
 
 export default HomeSection;
+
