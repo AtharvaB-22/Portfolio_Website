@@ -6,28 +6,28 @@ const ProjectsSection: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState('All');
   const [showAll, setShowAll] = useState(false);
 
-  const categories = ['All', 'Full Stack', 'AI', 'Data Analysis', 'Mobile'];
+  const categories = ['All', 'Full Stack', 'AI', 'Data Analysis'];
 
   const allProjects = [
     {
       id: 1,
-      title: 'E-Commerce Platform',
-      description: 'A full-stack e-commerce solution built with React, Node.js, and MongoDB. Features include user authentication, payment processing, and admin dashboard.',
-      image: 'https://images.pexels.com/photos/230544/pexels-photo-230544.jpeg?auto=compress&cs=tinysrgb&w=800',
-      tech: ['React', 'Node.js', 'MongoDB', 'Stripe'],
+      title: 'Splitr',
+      description: 'A robust full-stack expense tracking platform offering real-time monitoring, automated payment reminders, and secure user authentication. It supports efficient group expense management.',
+      image: '/src/assets/project_1.png',
+      tech: ['Next.js', 'Convex', 'Vercel', 'Clerk', 'Inngest', 'Resend', 'Tailwind CSS', 'Node.js'],
       category: 'Full Stack',
-      github: '#',
-      live: '#'
+      github: 'https://github.com/AtharvaB-22/Splitr',
+      live: 'https://ai-splitr.vercel.app/'
     },
     {
       id: 2,
-      title: 'AI Chatbot Assistant',
-      description: 'An intelligent chatbot powered by machine learning algorithms, capable of natural language processing and contextual conversations.',
-      image: 'https://images.pexels.com/photos/8386440/pexels-photo-8386440.jpeg?auto=compress&cs=tinysrgb&w=800',
-      tech: ['Python', 'TensorFlow', 'NLP', 'Flask'],
-      category: 'AI',
-      github: '#',
-      live: '#'
+      title: 'GitHub Repo Analyzer',
+      description: 'A comprehensive tool for analyzing GitHub repositories, featuring a Flask backend and React frontend, containerized with Docker. It provides insights into repository metadata, commit patterns, contributor activity, language usage, and pull request stats through an intuitive web interface.',
+      image: 'https://images.pexels.com/photos/1181393/pexels-photo-1181393.jpeg?auto=compress&cs=tinysrgb&w=800',
+      tech: ['Flask', 'React', 'Docker', 'Node.js', 'Python'],
+      category: 'Full Stack',
+      github: 'https://github.com/AtharvaB-22/Github-Repo-Analyser',
+      video: 'https://www.loom.com/share/b3db7618e59d49da8287661cc3a857a1?sid=86fc29bc-eb08-4daa-bf24-877e27eb0237'
     },
     {
       id: 3,
@@ -46,16 +46,6 @@ const ProjectsSection: React.FC = () => {
       image: 'https://images.pexels.com/photos/3184298/pexels-photo-3184298.jpeg?auto=compress&cs=tinysrgb&w=800',
       tech: ['Next.js', 'TypeScript', 'Prisma', 'Socket.io'],
       category: 'Full Stack',
-      github: '#',
-      live: '#'
-    },
-    {
-      id: 5,
-      title: 'Mobile Fitness Tracker',
-      description: 'A cross-platform mobile app for tracking workouts, nutrition, and health metrics with social features and progress analytics.',
-      image: 'https://images.pexels.com/photos/4164418/pexels-photo-4164418.jpeg?auto=compress&cs=tinysrgb&w=800',
-      tech: ['React Native', 'Firebase', 'Redux', 'Chart.js'],
-      category: 'Mobile',
       github: '#',
       live: '#'
     },

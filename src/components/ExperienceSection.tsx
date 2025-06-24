@@ -3,7 +3,9 @@ import { motion } from 'framer-motion';
 import { Calendar, MapPin, Building } from 'lucide-react';
 
 const ExperienceSection: React.FC = () => {
-  const experiences = [
+  const [showAll, setShowAll] = useState(false);
+
+  const allExperiences = [
     {
       id: 1,
       title: 'Senior Full Stack Developer',
@@ -59,8 +61,38 @@ const ExperienceSection: React.FC = () => {
       ],
       technologies: ['HTML', 'CSS', 'JavaScript', 'jQuery', 'Bootstrap'],
       logo: '💻'
+    },
+    {
+      id: 5,
+      title: 'Software Engineering Intern',
+      company: 'InnovateTech',
+      location: 'Seattle, WA',
+      period: '2018 - 2018',
+      achievements: [
+        'Developed automated testing scripts reducing QA time by 30%',
+        'Contributed to open-source projects',
+        'Collaborated with cross-functional teams on product features'
+      ],
+      technologies: ['Python', 'Selenium', 'Git', 'Agile', 'REST APIs'],
+      logo: '🔬'
+    },
+    {
+      id: 6,
+      title: 'Web Development Freelancer',
+      company: 'Self-Employed',
+      location: 'Remote',
+      period: '2017 - 2018',
+      achievements: [
+        'Built 10+ websites for small businesses',
+        'Managed client relationships and project timelines',
+        'Learned fundamentals of web development and design'
+      ],
+      technologies: ['WordPress', 'PHP', 'MySQL', 'Photoshop', 'SEO'],
+      logo: '🎨'
     }
   ];
+
+  const displayedExperiences = showAll ? allExperiences : allExperiences.slice(0, 4);
 
   const ExperienceCard = ({ experience, index }: { experience: any; index: number }) => {
     const cardRef = useRef<HTMLDivElement>(null);
@@ -315,12 +347,32 @@ const ExperienceSection: React.FC = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12"
         >
-          {experiences.map((experience, index) => (
+          {displayedExperiences.map((experience, index) => (
             <ExperienceCard key={experience.id} experience={experience} index={index} />
           ))}
         </motion.div>
+
+        {/* Show All/Show Less Button */}
+        {allExperiences.length > 4 && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center"
+          >
+            <motion.button
+              onClick={() => setShowAll(!showAll)}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transition-shadow duration-300"
+            >
+              {showAll ? 'Show Less' : `View All ${allExperiences.length} Experiences`}
+            </motion.button>
+          </motion.div>
+        )}
       </div>
     </section>
   );
