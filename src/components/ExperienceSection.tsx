@@ -1,6 +1,11 @@
 import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, MapPin, Building } from 'lucide-react';
+import LumiqLogo from '../assets/Lumiq_logo.png';
+import NextBillionLogo from '../assets/NextBillion.png';
+import DevternLogo from '../assets/Devtern.png';
+import ZetpeakLogo from '../assets/Zetpeak.png';
+import AiesecLogo from '../assets/AIESEC.png';
 
 const ExperienceSection: React.FC = () => {
   const [showAll, setShowAll] = useState(false);
@@ -8,88 +13,102 @@ const ExperienceSection: React.FC = () => {
   const allExperiences = [
     {
       id: 1,
-      title: 'Senior Full Stack Developer',
-      company: 'TechCorp Solutions',
-      location: 'San Francisco, CA',
-      period: '2022 - Present',
+      title: 'Software Engineering Intern',
+      company: 'Lumiq',
+      location: 'Noida, India',
+      period: 'Jan 2025 - Present',
       achievements: [
-        'Improved application performance by 40%',
-        'Led team of 5 developers',
-        'Implemented CI/CD pipeline reducing deployment time by 60%'
+        'Enhanced system performance by optimizing workflows and deployment diagnostics',
+        'Automated ETL pipelines to improve data integrity and efficiency',
+        'Adopted Agile/Scrum practices to streamline development processes'
       ],
-      technologies: ['React', 'Node.js', 'MongoDB', 'AWS', 'Docker', 'TypeScript'],
-      logo: '🏢'
+      technologies: ['React', 'Node.js', 'MongoDB', 'Python', 'Apache Airflow', 'Agile/Scrum'],
+      logo: <img src={LumiqLogo} alt="Lumiq Logo" className="w-12 h-10" />
     },
     {
       id: 2,
-      title: 'Full Stack Developer',
-      company: 'Digital Innovation Lab',
-      location: 'New York, NY',
-      period: '2020 - 2022',
+      title: 'Business Analyst Intern',
+      company: 'NextBillion.ai',
+      location: 'Hyderabad, India',
+      period: 'May 2024 - Jul 2024',
       achievements: [
-        'Delivered 15+ successful projects',
-        'Reduced bug reports by 50%',
-        'Implemented responsive designs for mobile-first approach'
+        'Improved support efficiency with data-driven insights and SLA tracking',
+        'Contributed to revenue growth through client segmentation analysis',
+        'Prioritized product roadmap features using usage analytics'
       ],
-      technologies: ['React', 'Express.js', 'PostgreSQL', 'Redux', 'Tailwind CSS'],
-      logo: '⚡'
+      technologies: ['MySQL', 'BI Tools', 'SLAs','Excel'],
+      logo: <img src={NextBillionLogo} alt="NextBillion Logo" className="w-12 h-10" />
     },
     {
       id: 3,
-      title: 'Frontend Developer',
-      company: 'StartupXYZ',
-      location: 'Austin, TX',
-      period: '2019 - 2020',
+      title: 'Web Developer Intern',
+      company: 'Devtern',
+      location: 'Remote',
+      period: 'Feb 2024 - Apr 2024',
       achievements: [
-        'Increased user engagement by 35%',
-        'Optimized website loading speed by 45%',
-        'Implemented accessibility standards (WCAG 2.1)'
+        'Developed a responsive travel website with enhanced performance',
+        'Delivered a secure login portal recognized among top interns',
+        'Achieved a 30% performance improvement through optimization'
       ],
-      technologies: ['Vue.js', 'JavaScript', 'SASS', 'Webpack', 'Jest'],
-      logo: '🚀'
+      technologies: ['HTML', 'CSS', 'JavaScript', 'OAuth 2.0'],
+      logo: <img src={DevternLogo} alt="Devtern Logo" className="w-12 h-10" />
     },
     {
       id: 4,
-      title: 'Junior Web Developer',
-      company: 'WebFlow Agency',
+      title: 'Web Developer Intern',
+      company: 'Zetpeak',
       location: 'Remote',
-      period: '2018 - 2019',
+      period: 'Jul 2023 - Oct 2023',
       achievements: [
-        'Completed 20+ client websites',
-        'Learned React, Node.js, and modern web stack',
-        'Maintained 99% client satisfaction rate'
+        'Collaborated on a billing website with a seamless mobile experience',
+        'Optimized performance and ensured cross-browser compatibility',
+        'Designed a user-friendly interface with responsive techniques'
       ],
-      technologies: ['HTML', 'CSS', 'JavaScript', 'jQuery', 'Bootstrap'],
-      logo: '💻'
+      technologies: ['HTML', 'CSS', 'JavaScript'],
+      logo: <img src={ZetpeakLogo} alt="Zetpeak Logo" className="w-12 h-10" />
     },
     {
       id: 5,
-      title: 'Software Engineering Intern',
-      company: 'InnovateTech',
-      location: 'Seattle, WA',
-      period: '2018 - 2018',
+      title: 'Vice President - Youth for Volunteering',
+      company: 'AIESEC in M.A.H.E.',
+      location: 'Manipal, India',
+      period: 'Dec 2022 - Jul 2023',
       achievements: [
-        'Developed automated testing scripts reducing QA time by 30%',
-        'Contributed to open-source projects',
-        'Collaborated with cross-functional teams on product features'
+        'Led a team to enhance volunteer engagement across international programs',
+        'Provided mentorship for personal growth to 20+ volunteers',
+        'Organized successful international volunteering events with high participation'
       ],
-      technologies: ['Python', 'Selenium', 'Git', 'Agile', 'REST APIs'],
-      logo: '🔬'
+      skills: ['Leadership', 'Team Management', 'Public Speaking'],
+      logo: <img src={AiesecLogo} alt="AIESEC Logo" className="w-12 h-10" />
     },
     {
       id: 6,
-      title: 'Web Development Freelancer',
-      company: 'Self-Employed',
-      location: 'Remote',
-      period: '2017 - 2018',
+      title: 'Team Leader - Marketing',
+      company: 'AIESEC in M.A.H.E.',
+      location: 'Manipal, India',
+      period: 'Jun 2022 - Nov 2022',
       achievements: [
-        'Built 10+ websites for small businesses',
-        'Managed client relationships and project timelines',
-        'Learned fundamentals of web development and design'
+        'Directed marketing campaigns to boost brand visibility for student programs',
+        'Coordinated team efforts for impactful engagement with 5 members',
+        'Developed creative strategies for effective student outreach'
       ],
-      technologies: ['WordPress', 'PHP', 'MySQL', 'Photoshop', 'SEO'],
-      logo: '🎨'
-    }
+      skills: ['Team Management', 'Marketing', 'Strategic Planning'],
+      logo: <img src={AiesecLogo} alt="AIESEC Logo" className="w-12 h-10" />
+    },
+    {
+      id: 7,
+      title: 'National Organizing Committee',
+      company: 'AIESEC in India',
+      location: 'Bengaluru, India',
+      period: 'Aug 2022 - Sep 2022',
+      achievements: [
+        'Orchestrated a national conference for 300+ participants on global opportunities',
+        'Collaborated with a 10-member team for seamless event execution',
+        'Delivered impactful sessions to inspire student participation'
+      ],
+      skills: ['Event Coordination', 'Collaboration', 'Communication'],
+      logo: <img src={AiesecLogo} alt="AIESEC Logo" className="w-12 h-10" />
+    },
   ];
 
   const displayedExperiences = showAll ? allExperiences : allExperiences.slice(0, 4);
@@ -172,9 +191,11 @@ const ExperienceSection: React.FC = () => {
             </div>
 
             <div>
-              <h4 className="font-semibold text-white text-sm mb-3">Technologies Used:</h4>
+              <h4 className="font-semibold text-white text-sm mb-3">
+                {experience.skills ? 'Skills:' : 'Technologies Used:'}
+              </h4>
               <div className="flex flex-wrap gap-2">
-                {experience.technologies.map((tech: string, techIndex: number) => (
+                {(experience.technologies || experience.skills).map((tech: string, techIndex: number) => (
                   <motion.span
                     key={techIndex}
                     onMouseEnter={() => setHoveredTech(tech)}

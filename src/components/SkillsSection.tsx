@@ -5,7 +5,7 @@ const SkillsSection: React.FC = () => {
   const skillCategories = [
     {
       title: 'Programming Languages',
-      skills: ['JavaScript/TypeScript', 'Python', 'Java', 'C++', 'Swift', 'Dart']
+      skills: ['JavaScript/TypeScript', 'Python', 'Java', 'C++']
     },
     {
       title: 'Front-end',

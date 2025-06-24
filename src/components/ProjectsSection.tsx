@@ -22,7 +22,7 @@ const ProjectsSection: React.FC = () => {
     {
       id: 2,
       title: 'GitHub Repo Analyzer',
-      description: 'A comprehensive tool for analyzing GitHub repositories, featuring a Flask backend and React frontend, containerized with Docker. It provides insights into repository metadata, commit patterns, contributor activity, language usage, and pull request stats through an intuitive web interface.',
+      description: 'A comprehensive tool for analyzing GitHub repositories. It provides insights into repository metadata, commit patterns, contributor activity, language usage, and pull request stats through an intuitive web interface.',
       image: 'https://images.pexels.com/photos/1181393/pexels-photo-1181393.jpeg?auto=compress&cs=tinysrgb&w=800',
       tech: ['Flask', 'React', 'Docker', 'Node.js', 'Python'],
       category: 'Full Stack',
