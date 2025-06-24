@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Zap, Github, Linkedin, Send, Phone, Instagram } from 'lucide-react';
+import { socialLinks } from '../path/to/socialLinks';
 
 const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -113,9 +114,9 @@ const ContactSection: React.FC = () => {
   };
 
   const socialLinks = [
-    { icon: Github, href: '#', label: 'GitHub', color: 'hover:text-gray-300' },
-    { icon: Linkedin, href: '#', label: 'LinkedIn', color: 'hover:text-blue-400' },
-    { icon: Instagram, href: '#', label: 'Instagram', color: 'hover:text-pink-400' },
+    { icon: Github, href: 'https://github.com/AtharvaB-22', label: 'GitHub', color: 'hover:text-gray-300' },
+    { icon: Linkedin, href: 'https://www.linkedin.com/in/atharvabehani/', label: 'LinkedIn', color: 'hover:text-blue-400' },
+    { icon: Instagram, href: 'https://www.instagram.com/atharva_behani/', label: 'Instagram', color: 'hover:text-pink-400' },
   ];
 
   return (
@@ -276,7 +277,7 @@ const ContactSection: React.FC = () => {
                   </div>
                   <div>
                     <p className="text-gray-400 text-sm">Phone</p>
-                    <p className="text-white font-medium">+91 XXXXX XXXXX</p>
+                    <p className="text-white font-medium">+91 8336951565</p>
                   </div>
                 </div>
 
@@ -286,7 +287,7 @@ const ContactSection: React.FC = () => {
                   </div>
                   <div>
                     <p className="text-gray-400 text-sm">Location</p>
-                    <p className="text-white font-medium">San Francisco, CA</p>
+                    <p className="text-white font-medium">Noida, India </p>
                   </div>
                 </div>
 
@@ -305,11 +306,11 @@ const ContactSection: React.FC = () => {
                 <p className="text-white font-medium mb-4">Let's build something awesome together!</p>
                 
                 <div className="flex gap-4">
-                  {socialLinks.map((social, index) => (
+                  {socialLinks.map((social) => (
                     <SocialIcon
                       key={social.label}
                       icon={social.icon}
-                      href={social.href}
+                      href={social.href}  // Use the href from socialLinks
                       label={social.label}
                       color={social.color}
                     />

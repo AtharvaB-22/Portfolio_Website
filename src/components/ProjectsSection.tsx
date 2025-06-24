@@ -24,10 +24,9 @@ const ProjectsSection: React.FC = () => {
       title: 'GitHub Repo Analyzer',
       description: 'A comprehensive tool for analyzing GitHub repositories. It provides insights into repository metadata, commit patterns, contributor activity, language usage, and pull request stats through an intuitive web interface.',
       image: 'https://images.pexels.com/photos/1181393/pexels-photo-1181393.jpeg?auto=compress&cs=tinysrgb&w=800',
-      tech: ['Flask', 'React', 'Docker', 'Node.js', 'Python'],
+      tech: ['Flask', 'React', 'Docker','Python'],
       category: 'Full Stack',
       github: 'https://github.com/AtharvaB-22/Github-Repo-Analyser',
-      video: 'https://www.loom.com/share/b3db7618e59d49da8287661cc3a857a1?sid=86fc29bc-eb08-4daa-bf24-877e27eb0237'
     },
     {
       id: 3,
@@ -35,9 +34,7 @@ const ProjectsSection: React.FC = () => {
       description: 'A comprehensive data visualization platform that analyzes sales trends, customer behavior, and market insights using advanced analytics.',
       image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=800',
       tech: ['Python', 'Pandas', 'Plotly', 'Streamlit'],
-      category: 'Data Analysis',
-      github: '#',
-      live: '#'
+      category: 'Data Analysis'
     },
     {
       id: 4,
@@ -112,30 +109,34 @@ const ProjectsSection: React.FC = () => {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
               <div className="absolute bottom-4 right-4 flex gap-2">
-                <motion.a
-                  href={project.github}
-                  whileHover={{ 
-                    scale: 1.3, 
-                    color: '#3b82f6',
-                    boxShadow: "0 4px 15px rgba(59, 130, 246, 0.4)"
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  className="p-2 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors"
-                >
-                  <Github className="w-4 h-4" />
-                </motion.a>
-                <motion.a
-                  href={project.live}
-                  whileHover={{ 
-                    scale: 1.3, 
-                    color: '#10b981',
-                    boxShadow: "0 4px 15px rgba(16, 185, 129, 0.4)"
-                  }}
-                  whileTap={{ scale: 0.95 }}
-                  className="p-2 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors"
-                >
-                  <ExternalLink className="w-4 h-4" />
-                </motion.a>
+                {project.github && (
+                  <motion.a
+                    href={project.github}
+                    whileHover={{ 
+                      scale: 1.3, 
+                      color: '#3b82f6',
+                      boxShadow: "0 4px 15px rgba(59, 130, 246, 0.4)"
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                    className="p-2 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors"
+                  >
+                    <Github className="w-4 h-4" />
+                  </motion.a>
+                )}
+                {project.live && (
+                  <motion.a
+                    href={project.live}
+                    whileHover={{ 
+                      scale: 1.3, 
+                      color: '#10b981',
+                      boxShadow: "0 4px 15px rgba(16, 185, 129, 0.4)"
+                    }}
+                    whileTap={{ scale: 0.95 }}
+                    className="p-2 bg-white/20 backdrop-blur-sm rounded-full text-white hover:bg-white/30 transition-colors"
+                  >
+                    <ExternalLink className="w-4 h-4" />
+                  </motion.a>
+                )}
               </div>
             </div>
           </div>
