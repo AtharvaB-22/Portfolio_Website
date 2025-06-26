@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 
 const SkillsSection: React.FC = () => {
@@ -112,117 +112,67 @@ const SkillsSection: React.FC = () => {
     }
   };
 
+  const [sectionHeight, setSectionHeight] = useState(1000);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const updateHeight = () => {
+      if (sectionRef.current) {
+        setSectionHeight(sectionRef.current.scrollHeight);
+      }
+    };
+    updateHeight();
+    window.addEventListener('resize', updateHeight);
+    return () => window.removeEventListener('resize', updateHeight);
+  }, []);
+
   return (
-    <section id="skills" className="py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-hidden">
-      {/* Optimized Background Effects */}
+    <section id="skills" ref={sectionRef} className="py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-visible">
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-pink-900/20"></div>
         
-        {/* Reduced Floating Particles */}
         {[...Array(48)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute w-1.5 h-1.5 bg-purple-400/70 rounded-full shadow-sm"
-            initial={{
-              x: Math.random() * 1400,
-              y: Math.random() * 1000,
-            }}
+            initial={{ x: Math.random() * window.innerWidth, y: Math.random() * sectionHeight }}
             animate={{
-              x: [
-                Math.random() * 1400,
-                Math.random() * 1400,
-                Math.random() * 1400,
-                Math.random() * 1400
-              ],
-              y: [
-                Math.random() * 1000,
-                Math.random() * 1000,
-                Math.random() * 1000,
-                Math.random() * 1000
-              ],
+              x: [Math.random() * window.innerWidth, Math.random() * window.innerWidth],
+              y: [Math.random() * sectionHeight, Math.random() * sectionHeight],
             }}
-            transition={{
-              duration: 25,
-              repeat: Infinity,
-              repeatType: 'loop',
-              ease: 'linear',
-              delay: i * 0.1,
-            }}
+            transition={{ duration: 25, repeat: Infinity, repeatType: 'loop', ease: 'linear', delay: i * 0.1 }}
           />
         ))}
 
-        {/* Smaller Particles */}
         {[...Array(32)].map((_, i) => (
           <motion.div
             key={`small-${i}`}
             className="absolute w-1 h-1 bg-indigo-400/50 rounded-full shadow-sm"
-            initial={{
-              x: Math.random() * 1400,
-              y: Math.random() * 1000,
-            }}
+            initial={{ x: Math.random() * window.innerWidth, y: Math.random() * sectionHeight }}
             animate={{
-              x: [
-                Math.random() * 1400,
-                Math.random() * 1400,
-                Math.random() * 1400
-              ],
-              y: [
-                Math.random() * 1000,
-                Math.random() * 1000,
-                Math.random() * 1000
-              ],
+              x: [Math.random() * window.innerWidth, Math.random() * window.innerWidth],
+              y: [Math.random() * sectionHeight, Math.random() * sectionHeight],
             }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              repeatType: 'loop',
-              ease: 'linear',
-              delay: i * 0.15,
-            }}
+            transition={{ duration: 20, repeat: Infinity, repeatType: 'loop', ease: 'linear', delay: i * 0.15 }}
           />
         ))}
 
-        {/* Gradient Orbs */}
         <motion.div
           className="absolute w-84 h-84 bg-gradient-to-r from-purple-500/25 to-indigo-500/25 rounded-full blur-3xl"
-          animate={{
-            x: [250, 650, 150, 450, 250],
-            y: [180, 120, 550, 280, 180],
-            scale: [1, 1.5, 0.5, 1.3, 1],
-          }}
-          transition={{
-            duration: 26,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
+          animate={{ x: [250, 650, 150, 450, 250], y: [180, 120, sectionHeight - 200, 280, 180], scale: [1, 1.5, 0.5, 1.3, 1] }}
+          transition={{ duration: 26, repeat: Infinity, ease: 'linear' }}
         />
         
         <motion.div
           className="absolute w-72 h-72 bg-gradient-to-r from-indigo-500/25 to-cyan-500/25 rounded-full blur-3xl"
-          animate={{
-            x: [950, 750, 1150, 850, 950],
-            y: [350, 650, 250, 500, 350],
-            scale: [1, 0.6, 1.6, 0.8, 1],
-          }}
-          transition={{
-            duration: 24,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
+          animate={{ x: [950, 750, 1150, 850, 950], y: [350, sectionHeight - 300, 250, 500, 350], scale: [1, 0.6, 1.6, 0.8, 1] }}
+          transition={{ duration: 24, repeat: Infinity, ease: 'linear' }}
         />
 
         <motion.div
           className="absolute w-64 h-64 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-full blur-3xl"
-          animate={{
-            x: [550, 350, 850, 500, 550],
-            y: [450, 250, 750, 400, 450],
-            scale: [1, 1.4, 0.7, 1.5, 1],
-          }}
-          transition={{
-            duration: 28,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
+          animate={{ x: [550, 350, 850, 500, 550], y: [450, 250, sectionHeight - 100, 400, 450], scale: [1, 1.4, 0.7, 1.5, 1] }}
+          transition={{ duration: 28, repeat: Infinity, ease: 'linear' }}
         />
       </div>
 
