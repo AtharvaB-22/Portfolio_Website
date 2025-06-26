@@ -1,4 +1,5 @@
-import React, { useRef, useState } from 'react';
+
+import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, MapPin, Building } from 'lucide-react';
 import LumiqLogo from '../assets/Lumiq_logo.png';
@@ -231,117 +232,67 @@ const ExperienceSection: React.FC = () => {
     }
   };
 
+  const [sectionHeight, setSectionHeight] = useState(1000);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const updateHeight = () => {
+      if (sectionRef.current) {
+        setSectionHeight(sectionRef.current.scrollHeight);
+      }
+    };
+    updateHeight();
+    window.addEventListener('resize', updateHeight);
+    return () => window.removeEventListener('resize', updateHeight);
+  }, [showAll]);
+
   return (
-    <section id="experience" className="py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-hidden">
-      {/* Optimized Background Effects */}
+    <section id="experience" ref={sectionRef} className="py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-visible">
       <div className="absolute inset-0 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-pink-900/20"></div>
         
-        {/* Reduced Floating Particles */}
         {[...Array(45)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute w-1.5 h-1.5 bg-pink-400/70 rounded-full shadow-sm"
-            initial={{
-              x: Math.random() * 1400,
-              y: Math.random() * 1000,
-            }}
+            initial={{ x: Math.random() * window.innerWidth, y: Math.random() * sectionHeight }}
             animate={{
-              x: [
-                Math.random() * 1400,
-                Math.random() * 1400,
-                Math.random() * 1400,
-                Math.random() * 1400
-              ],
-              y: [
-                Math.random() * 1000,
-                Math.random() * 1000,
-                Math.random() * 1000,
-                Math.random() * 1000
-              ],
+              x: [Math.random() * window.innerWidth, Math.random() * window.innerWidth],
+              y: [Math.random() * sectionHeight, Math.random() * sectionHeight],
             }}
-            transition={{
-              duration: 25,
-              repeat: Infinity,
-              repeatType: 'loop',
-              ease: 'linear',
-              delay: i * 0.1,
-            }}
+            transition={{ duration: 25, repeat: Infinity, repeatType: 'loop', ease: 'linear', delay: i * 0.1 }}
           />
         ))}
 
-        {/* Smaller Particles */}
         {[...Array(30)].map((_, i) => (
           <motion.div
             key={`small-${i}`}
             className="absolute w-1 h-1 bg-cyan-400/50 rounded-full shadow-sm"
-            initial={{
-              x: Math.random() * 1400,
-              y: Math.random() * 1000,
-            }}
+            initial={{ x: Math.random() * window.innerWidth, y: Math.random() * sectionHeight }}
             animate={{
-              x: [
-                Math.random() * 1400,
-                Math.random() * 1400,
-                Math.random() * 1400
-              ],
-              y: [
-                Math.random() * 1000,
-                Math.random() * 1000,
-                Math.random() * 1000
-              ],
+              x: [Math.random() * window.innerWidth, Math.random() * window.innerWidth],
+              y: [Math.random() * sectionHeight, Math.random() * sectionHeight],
             }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              repeatType: 'loop',
-              ease: 'linear',
-              delay: i * 0.15,
-            }}
+            transition={{ duration: 20, repeat: Infinity, repeatType: 'loop', ease: 'linear', delay: i * 0.15 }}
           />
         ))}
 
-        {/* Gradient Orbs */}
         <motion.div
           className="absolute w-76 h-76 bg-gradient-to-r from-pink-500/25 to-purple-500/25 rounded-full blur-3xl"
-          animate={{
-            x: [300, 700, 200, 500, 300],
-            y: [200, 150, 600, 350, 200],
-            scale: [1, 1.4, 0.6, 1.2, 1],
-          }}
-          transition={{
-            duration: 27,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
+          animate={{ x: [300, 700, 200, 500, 300], y: [200, 150, sectionHeight - 200, 350, 200], scale: [1, 1.4, 0.6, 1.2, 1] }}
+          transition={{ duration: 27, repeat: Infinity, ease: 'linear' }}
         />
         
         <motion.div
           className="absolute w-68 h-68 bg-gradient-to-r from-cyan-500/25 to-blue-500/25 rounded-full blur-3xl"
-          animate={{
-            x: [1000, 800, 1200, 900, 1000],
-            y: [400, 700, 300, 550, 400],
-            scale: [1, 0.7, 1.5, 0.9, 1],
-          }}
-          transition={{
-            duration: 23,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
+          animate={{ x: [1000, 800, 1200, 900, 1000], y: [400, sectionHeight - 300, 300, 550, 400], scale: [1, 0.7, 1.5, 0.9, 1] }}
+          transition={{ duration: 23, repeat: Infinity, ease: 'linear' }}
         />
 
         <motion.div
           className="absolute w-60 h-60 bg-gradient-to-r from-indigo-500/20 to-pink-500/20 rounded-full blur-3xl"
-          animate={{
-            x: [600, 400, 900, 550, 600],
-            y: [500, 300, 800, 450, 500],
-            scale: [1, 1.3, 0.8, 1.4, 1],
-          }}
-          transition={{
-            duration: 29,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
+          animate={{ x: [600, 400, 900, 550, 600], y: [500, 300, sectionHeight - 100, 450, 500], scale: [1, 1.3, 0.8, 1.4, 1] }}
+          transition={{ duration: 29, repeat: Infinity, ease: 'linear' }}
         />
       </div>
 
@@ -375,7 +326,6 @@ const ExperienceSection: React.FC = () => {
           ))}
         </motion.div>
 
-        {/* Show All/Show Less Button */}
         {allExperiences.length > 4 && (
           <motion.div
             initial={{ opacity: 0 }}

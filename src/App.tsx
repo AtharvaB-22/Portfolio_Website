@@ -36,7 +36,7 @@ function App() {
   }, []);
 
   return (
-    <div className="overflow-x-hidden bg-black">
+    <div className=" bg-black">
       <Navigation />
       <main>
         <HomeSection />
