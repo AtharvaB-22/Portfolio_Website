@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Zap, Github, Linkedin, Send, Phone, Instagram } from 'lucide-react';
-import { socialLinks } from '../path/to/socialLinks';
+// import { socialLinks } from '../path/to/socialLinks';
 
 const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -29,9 +29,9 @@ const ContactSection: React.FC = () => {
     // Open default email client
     window.location.href = mailtoLink;
     
-    // Reset form
-    setFormData({ name: '', email: '', message: '' });
-  };
+    // Comment out the form reset
+    // setFormData({ name: '', email: '', message: '' });
+};
 
   const ContactCard = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
     const cardRef = useRef<HTMLDivElement>(null);
@@ -398,3 +398,4 @@ const ContactSection: React.FC = () => {
 };
 
 export default ContactSection;
+
