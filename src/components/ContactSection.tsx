@@ -1,34 +1,122 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Zap, Github, Linkedin, Send, Phone, Instagram } from 'lucide-react';
+import emailjs from 'emailjs-com';
 
-const ContactSection: React.FC = () => {
-  const [formData, setFormData] = useState({
+interface FormData {
+  name: string;
+  email: string;
+  message: string;
+}
+
+const ContactForm: React.FC = () => {
+  const [formData, setFormData] = useState<FormData>({
     name: '',
     email: '',
-    message: ''
+    message: '',
   });
+
+  const formRef = useRef<HTMLFormElement>(null);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
-    const subject = encodeURIComponent(`Portfolio Contact from ${formData.name}`);
-    const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
-    const mailtoLink = `mailto:behaniatharva@gmail.com?subject=${subject}&body=${body}`;
-    
-    window.location.href = mailtoLink;
-    // setFormData({ name: '', email: '', message: '' });
+
+    if (formRef.current) {
+      try {
+        await emailjs.sendForm(
+          'service_rko427n', // Replace with your EmailJS Service ID
+          'template_0w7iaf9', // Replace with your EmailJS Template ID
+          formRef.current,
+          'idy-SrJMEOA_eUcmj' // Replace with your EmailJS User ID
+        );
+        alert('Message sent successfully!');
+        setFormData({ name: '', email: '', message: '' });
+      } catch (error) {
+        console.error('Failed to send email:', error);
+        alert('Failed to send message. Please try again later.');
+      }
+    }
   };
 
-  const ContactCard = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
+  return (
+    <div className="p-8 bg-gray-900 rounded-2xl border border-gray-800 shadow-2xl">
+      <h3 className="text-2xl font-bold text-purple-400 mb-8">Send a Message</h3>
+      <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
+        <div>
+          <label htmlFor="name" className="block text-white font-medium mb-2">
+            Name
+          </label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            value={formData.name}
+            onChange={handleInputChange}
+            required
+            autoComplete="name"
+            className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400 transition-colors"
+            placeholder="Your name"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="email" className="block text-white font-medium mb-2">
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleInputChange}
+            required
+            autoComplete="email"
+            className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400 transition-colors"
+            placeholder="your.email@example.com"
+          />
+        </div>
+
+        <div>
+          <label htmlFor="message" className="block text-white font-medium mb-2">
+            Message
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            value={formData.message}
+            onChange={handleInputChange}
+            required
+            rows={5}
+            autoComplete="off"
+            className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400 transition-colors resize-none"
+            placeholder="Tell me about your project..."
+          />
+        </div>
+
+        <motion.button
+          type="submit"
+          whileHover={{ scale: 1.02 }}
+          whileTap={{ scale: 0.98 }}
+          className="w-full py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex items-center justify-center gap-2"
+        >
+          <Send className="w-5 h-5" />
+          Send Message
+        </motion.button>
+      </form>
+    </div>
+  );
+};
+
+const ContactSection: React.FC = () => {
+  const ContactCard = ({ children, className = '' }: { children: React.ReactNode; className?: string }) => {
     const cardRef = useRef<HTMLDivElement>(null);
     const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
     const [isHovered, setIsHovered] = useState(false);
@@ -66,17 +154,17 @@ const ContactSection: React.FC = () => {
           href={href}
           onMouseEnter={() => setShowTooltip(true)}
           onMouseLeave={() => setShowTooltip(false)}
-          whileHover={{ 
+          whileHover={{
             scale: 1.1,
             filter: 'brightness(0.7) contrast(1.2)',
             boxShadow: '0 4px 15px rgba(147, 51, 234, 0.4)',
           }}
           whileTap={{ scale: 0.95 }}
-          transition={{ 
-            type: 'spring', 
-            stiffness: 400, 
+          transition={{
+            type: 'spring',
+            stiffness: 400,
             damping: 25,
-            duration: 0.2
+            duration: 0.2,
           }}
           className={`p-3 bg-gray-800 rounded-full text-gray-400 transition-colors ${color} block`}
           style={{ transformStyle: 'preserve-3d', zIndex: 20 }}
@@ -84,7 +172,7 @@ const ContactSection: React.FC = () => {
         >
           <Icon className="w-5 h-5" />
         </motion.a>
-        
+
         {showTooltip && (
           <motion.div
             initial={{ opacity: 0, y: 10, scale: 0.8 }}
@@ -125,7 +213,7 @@ const ContactSection: React.FC = () => {
     <section id="contact" ref={sectionRef} className="py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-visible">
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-pink-900/20"></div>
-        
+
         {[...Array(55)].map((_, i) => (
           <motion.div
             key={i}
@@ -157,7 +245,7 @@ const ContactSection: React.FC = () => {
           animate={{ x: [280, 680, 180, 480, 280], y: [220, 160, sectionHeight - 200, 320, 220], scale: [1, 1.6, 0.4, 1.4, 1] }}
           transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
         />
-        
+
         <motion.div
           className="absolute w-76 h-76 bg-gradient-to-r from-pink-500/25 to-cyan-500/25 rounded-full blur-3xl"
           animate={{ x: [980, 780, 1180, 880, 980], y: [380, sectionHeight - 300, 280, 530, 380], scale: [1, 0.5, 1.7, 0.7, 1] }}
@@ -196,7 +284,7 @@ const ContactSection: React.FC = () => {
           >
             <ContactCard className="p-8 h-full">
               <h3 className="text-2xl font-bold text-purple-400 mb-8">Contact Information</h3>
-              
+
               <div className="space-y-6 mb-8">
                 <div className="flex items-center gap-4">
                   <div className="p-3 bg-purple-500/20 rounded-full">
@@ -241,7 +329,7 @@ const ContactSection: React.FC = () => {
 
               <div className="border-t border-gray-800 pt-6">
                 <p className="text-white font-medium mb-4">Let's build something awesome together!</p>
-                
+
                 <div className="flex gap-4">
                   {socialLinks.map((social) => (
                     <SocialIcon
@@ -263,72 +351,7 @@ const ContactSection: React.FC = () => {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <ContactCard className="p-8 h-full">
-              <h3 className="text-2xl font-bold text-purple-400 mb-8">Send a Message</h3>
-              
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                  <label htmlFor="name" className="block text-white font-medium mb-2">
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleInputChange}
-                    required
-                    autoComplete="name"
-                    className="wn-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400 transition-colors"
-                    placeholder="Your name"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="email" className="block text-white font-medium mb-2">
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleInputChange}
-                    required
-                    autoComplete="email"
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400 transition-colors"
-                    placeholder="your.email@example.com"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="message" className="block text-white font-medium mb-2">
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    value={formData.message}
-                    onChange={handleInputChange}
-                    required
-                    rows={5}
-                    autoComplete="off"
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400 transition-colors resize-none"
-                    placeholder="Tell me about your project..."
-                  />
-                </div>
-
-                <motion.button
-                  type="submit"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="w-full py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 flex items-center justify-center gap-2"
-                >
-                  <Send className="w-5 h-5" />
-                  Send Message
-                </motion.button>
-              </form>
-            </ContactCard>
+            <ContactForm />
           </motion.div>
         </div>
       </div>
