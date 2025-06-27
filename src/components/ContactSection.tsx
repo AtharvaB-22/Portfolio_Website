@@ -17,6 +17,14 @@ const ContactForm: React.FC = () => {
   });
 
   const formRef = useRef<HTMLFormElement>(null);
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isHovered, setIsHovered] = useState(false);
+
+  // Initialize EmailJS with environment variables (Vite uses VITE_ prefix)
+  useEffect(() => {
+    emailjs.init(import.meta.env.VITE_EMAILJS_USER_ID!);
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -29,14 +37,19 @@ const ContactForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+    const userId = import.meta.env.VITE_EMAILJS_USER_ID;
+
+    if (!serviceId || !templateId || !userId) {
+      alert('Email service configuration error. Please try again later.');
+      console.error('Missing EmailJS environment variables');
+      return;
+    }
+
     if (formRef.current) {
       try {
-        await emailjs.sendForm(
-          'service_rko427n', // Replace with your EmailJS Service ID
-          'template_0w7iaf9', // Replace with your EmailJS Template ID
-          formRef.current,
-          'idy-SrJMEOA_eUcmj' // Replace with your EmailJS User ID
-        );
+        await emailjs.sendForm(serviceId, templateId, formRef.current, userId);
         alert('Message sent successfully!');
         setFormData({ name: '', email: '', message: '' });
       } catch (error) {
@@ -46,8 +59,25 @@ const ContactForm: React.FC = () => {
     }
   };
 
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const rect = cardRef.current.getBoundingClientRect();
+    setMousePosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  };
+
   return (
-    <div className="p-8 bg-gray-900 rounded-2xl border border-gray-800 shadow-2xl">
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="p-8 bg-gray-900 rounded-2xl border border-gray-800 transition-all duration-300 shadow-2xl"
+      style={{
+        background: isHovered
+          ? `radial-gradient(400px circle at ${mousePosition.x}px ${mousePosition.y}px, rgba(147, 51, 234, 0.4), rgba(59, 130, 246, 0.2), transparent 70%)`
+          : 'rgb(17, 24, 39)',
+      }}
+    >
       <h3 className="text-2xl font-bold text-purple-400 mb-8">Send a Message</h3>
       <form ref={formRef} onSubmit={handleSubmit} className="space-y-6">
         <div>
