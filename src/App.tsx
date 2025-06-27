@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
-import Lenis from '@studio-freight/lenis';
-import { motion } from 'framer-motion';
-import Navigation from './components/Navigation';
+import React from 'react';
+// import Lenis from '@studio-freight/lenis';
+// import { motion } from 'framer-motion';
+// import Navigation from './components/Navigation';
+import SectionWrapper from './components/SectionWrapper';
 import HomeSection from './components/HomeSection';
 import ProjectsSection from './components/ProjectsSection';
 import ExperienceSection from './components/ExperienceSection';
@@ -9,44 +10,27 @@ import SkillsSection from './components/SkillsSection';
 import ContactSection from './components/ContactSection';
 import './index.css';
 
-function App() {
-  useEffect(() => {
-    // const lenis = new Lenis({
-    //   duration: 1.2,
-    //   easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    //   direction: 'vertical',
-    //   gestureDirection: 'vertical',
-    //   smooth: true,
-    //   mouseMultiplier: 1,
-    //   smoothTouch: false,
-    //   touchMultiplier: 2,
-    //   infinite: false,
-    // });
-
-    // function raf(time: number) {
-    //   lenis.raf(time);
-    //   requestAnimationFrame(raf);
-    // }
-
-    // requestAnimationFrame(raf);
-
-    // return () => {
-    //   lenis.destroy();
-    // };
-  }, []);
-
+const App: React.FC = () => {
   return (
-    <div className=" bg-black">
-      <Navigation />
-      <main>
+    <div>
+      <SectionWrapper id="home">
         <HomeSection />
+      </SectionWrapper>
+      <SectionWrapper id="projects">
         <ProjectsSection />
+      </SectionWrapper>
+      <SectionWrapper id="experience">
         <ExperienceSection />
+      </SectionWrapper>
+      <SectionWrapper id="skills">
         <SkillsSection />
+      </SectionWrapper>
+      <SectionWrapper id="contact">
         <ContactSection />
-      </main>
+      </SectionWrapper>
     </div>
   );
-}
+};
 
 export default App;
+

@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 
 const Navigation: React.FC = () => {
-  const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const navigationItems = [
@@ -13,16 +12,6 @@ const Navigation: React.FC = () => {
     { name: 'Contact', href: '#contact' },
   ];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      const isScrolled = window.scrollY > 50;
-      setScrolled(isScrolled);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
@@ -32,15 +21,8 @@ const Navigation: React.FC = () => {
   };
 
   return (
-    <motion.nav
-      initial={{ y: -100 }}
-      animate={{ y: 0 }}
-      transition={{ duration: 0.6, ease: 'easeOut' }}
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? 'bg-black/95 backdrop-blur-md shadow-lg border-b border-gray-800'
-          : 'bg-transparent'
-      }`}
+    <nav
+      className="z-50 bg-transparent backdrop-blur-md shadow-lg border-b border-gray-800/50 transition-all duration-300"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
@@ -48,7 +30,7 @@ const Navigation: React.FC = () => {
           <div className="lg:hidden">
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="text-white hover:text-purple-400 focus:outline-none"
+              className="text-gray-300 hover:text-pink-400 focus:outline-none"
               aria-label="Toggle menu"
             >
               <svg
@@ -79,7 +61,7 @@ const Navigation: React.FC = () => {
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1, duration: 0.5 }}
-                className="text-gray-300 hover:text-purple-400 font-medium transition-colors duration-200 relative group mx-4"
+                className="text-gray-300 hover:text-pink-400 font-medium transition-colors duration-200 relative group mx-4"
               >
                 {item.name}
                 <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-purple-400 to-pink-400 transition-all duration-300 group-hover:w-full"></span>
@@ -92,9 +74,7 @@ const Navigation: React.FC = () => {
             initial={{ opacity: 0, x: '-100%' }}
             animate={{ opacity: isMenuOpen ? 1 : 0, x: isMenuOpen ? 0 : '-100%' }}
             transition={{ duration: 0.3 }}
-            className={`fixed top-16 left-0 w-full bg-gradient-to-r from-purple-900 to-pink-900 backdrop-blur-md shadow-lg border-b border-gray-800 lg:hidden ${
-              isMenuOpen ? 'block' : 'hidden'
-            }`}
+            className="fixed top-16 left-0 w-full bg-transparent backdrop-blur-md shadow-lg border-b border-gray-800/50 lg:hidden"
           >
             <div className="flex flex-col items-center space-y-4 py-4">
               {navigationItems.map((item, index) => (
@@ -106,7 +86,7 @@ const Navigation: React.FC = () => {
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1, duration: 0.5 }}
-                  className="text-white hover:text-purple-200 font-medium transition-colors duration-200 w-full text-center py-2"
+                  className="text-gray-300 hover:text-pink-400 font-medium transition-colors duration-200 w-full text-center py-2"
                 >
                   {item.name}
                 </motion.button>
@@ -115,7 +95,7 @@ const Navigation: React.FC = () => {
           </motion.div>
         </div>
       </div>
-    </motion.nav>
+    </nav>
   );
 };
 
