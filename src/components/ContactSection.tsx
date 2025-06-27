@@ -1,7 +1,6 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Zap, Github, Linkedin, Send, Phone, Instagram } from 'lucide-react';
-// import { socialLinks } from '../path/to/socialLinks';
 
 const ContactSection: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -21,17 +20,13 @@ const ContactSection: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Create mailto link with form data
     const subject = encodeURIComponent(`Portfolio Contact from ${formData.name}`);
     const body = encodeURIComponent(`Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`);
     const mailtoLink = `mailto:behaniatharva@gmail.com?subject=${subject}&body=${body}`;
     
-    // Open default email client
     window.location.href = mailtoLink;
-    
-    // Comment out the form reset
     // setFormData({ name: '', email: '', message: '' });
-};
+  };
 
   const ContactCard = ({ children, className = "" }: { children: React.ReactNode; className?: string }) => {
     const cardRef = useRef<HTMLDivElement>(null);
@@ -40,12 +35,8 @@ const ContactSection: React.FC = () => {
 
     const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
       if (!cardRef.current) return;
-      
       const rect = cardRef.current.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-      
-      setMousePosition({ x, y });
+      setMousePosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
     };
 
     return (
@@ -76,11 +67,9 @@ const ContactSection: React.FC = () => {
           onMouseEnter={() => setShowTooltip(true)}
           onMouseLeave={() => setShowTooltip(false)}
           whileHover={{ 
-            scale: 1.3,
-            rotateY: 15,
-            rotateX: 10,
-            boxShadow: "0 8px 25px rgba(147, 51, 234, 0.6)",
-            background: "linear-gradient(135deg, rgba(147, 51, 234, 0.2), rgba(59, 130, 246, 0.2))"
+            scale: 1.1,
+            filter: 'brightness(0.7) contrast(1.2)',
+            boxShadow: '0 4px 15px rgba(147, 51, 234, 0.4)',
           }}
           whileTap={{ scale: 0.95 }}
           transition={{ 
@@ -90,20 +79,19 @@ const ContactSection: React.FC = () => {
             duration: 0.2
           }}
           className={`p-3 bg-gray-800 rounded-full text-gray-400 transition-colors ${color} block`}
-          style={{ transformStyle: 'preserve-3d' }}
+          style={{ transformStyle: 'preserve-3d', zIndex: 20 }}
           aria-label={label}
         >
           <Icon className="w-5 h-5" />
         </motion.a>
         
-        {/* Tooltip */}
         {showTooltip && (
           <motion.div
             initial={{ opacity: 0, y: 10, scale: 0.8 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.8 }}
             transition={{ duration: 0.2 }}
-            className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-3 py-1 rounded-lg text-sm font-medium border border-gray-700 shadow-lg z-10"
+            className="absolute -top-12 left-1/2 transform -translate-x-1/2 bg-gray-900 text-white px-3 py-1 rounded-lg text-sm font-medium border border-gray-700 shadow-lg z-30"
           >
             {label}
             <div className="absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-gray-900"></div>
@@ -119,117 +107,67 @@ const ContactSection: React.FC = () => {
     { icon: Instagram, href: 'https://www.instagram.com/atharva_behani/', label: 'Instagram', color: 'hover:text-pink-400' },
   ];
 
+  const [sectionHeight, setSectionHeight] = useState(1000);
+  const sectionRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const updateHeight = () => {
+      if (sectionRef.current) {
+        setSectionHeight(sectionRef.current.scrollHeight);
+      }
+    };
+    updateHeight();
+    window.addEventListener('resize', updateHeight);
+    return () => window.removeEventListener('resize', updateHeight);
+  }, []);
+
   return (
-    <section id="contact" className="py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-hidden">
-      {/* Optimized Background Effects */}
-      <div className="absolute inset-0 overflow-hidden">
+    <section id="contact" ref={sectionRef} className="py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-visible">
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-pink-900/20"></div>
         
-        {/* Reduced Floating Particles */}
         {[...Array(55)].map((_, i) => (
           <motion.div
             key={i}
             className="absolute w-1.5 h-1.5 bg-purple-400/70 rounded-full shadow-sm"
-            initial={{
-              x: Math.random() * 1400,
-              y: Math.random() * 1000,
-            }}
+            initial={{ x: Math.random() * window.innerWidth, y: Math.random() * sectionHeight }}
             animate={{
-              x: [
-                Math.random() * 1400,
-                Math.random() * 1400,
-                Math.random() * 1400,
-                Math.random() * 1400
-              ],
-              y: [
-                Math.random() * 1000,
-                Math.random() * 1000,
-                Math.random() * 1000,
-                Math.random() * 1000
-              ],
+              x: [Math.random() * window.innerWidth, Math.random() * window.innerWidth],
+              y: [Math.random() * sectionHeight, Math.random() * sectionHeight],
             }}
-            transition={{
-              duration: 25,
-              repeat: Infinity,
-              repeatType: 'loop',
-              ease: 'linear',
-              delay: i * 0.1,
-            }}
+            transition={{ duration: 25, repeat: Infinity, repeatType: 'loop', ease: 'linear', delay: i * 0.1 }}
           />
         ))}
 
-        {/* Smaller Particles */}
         {[...Array(38)].map((_, i) => (
           <motion.div
             key={`small-${i}`}
             className="absolute w-1 h-1 bg-pink-400/50 rounded-full shadow-sm"
-            initial={{
-              x: Math.random() * 1400,
-              y: Math.random() * 1000,
-            }}
+            initial={{ x: Math.random() * window.innerWidth, y: Math.random() * sectionHeight }}
             animate={{
-              x: [
-                Math.random() * 1400,
-                Math.random() * 1400,
-                Math.random() * 1400
-              ],
-              y: [
-                Math.random() * 1000,
-                Math.random() * 1000,
-                Math.random() * 1000
-              ],
+              x: [Math.random() * window.innerWidth, Math.random() * window.innerWidth],
+              y: [Math.random() * sectionHeight, Math.random() * sectionHeight],
             }}
-            transition={{
-              duration: 20,
-              repeat: Infinity,
-              repeatType: 'loop',
-              ease: 'linear',
-              delay: i * 0.15,
-            }}
+            transition={{ duration: 20, repeat: Infinity, repeatType: 'loop', ease: 'linear', delay: i * 0.15 }}
           />
         ))}
 
-        {/* Gradient Orbs */}
         <motion.div
           className="absolute w-88 h-88 bg-gradient-to-r from-purple-500/25 to-pink-500/25 rounded-full blur-3xl"
-          animate={{
-            x: [280, 680, 180, 480, 280],
-            y: [220, 160, 580, 320, 220],
-            scale: [1, 1.6, 0.4, 1.4, 1],
-          }}
-          transition={{
-            duration: 30,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
+          animate={{ x: [280, 680, 180, 480, 280], y: [220, 160, sectionHeight - 200, 320, 220], scale: [1, 1.6, 0.4, 1.4, 1] }}
+          transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
         />
         
         <motion.div
           className="absolute w-76 h-76 bg-gradient-to-r from-pink-500/25 to-cyan-500/25 rounded-full blur-3xl"
-          animate={{
-            x: [980, 780, 1180, 880, 980],
-            y: [380, 680, 280, 530, 380],
-            scale: [1, 0.5, 1.7, 0.7, 1],
-          }}
-          transition={{
-            duration: 25,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
+          animate={{ x: [980, 780, 1180, 880, 980], y: [380, sectionHeight - 300, 280, 530, 380], scale: [1, 0.5, 1.7, 0.7, 1] }}
+          transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
         />
 
         <motion.div
           className="absolute w-68 h-68 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-full blur-3xl"
-          animate={{
-            x: [580, 380, 880, 530, 580],
-            y: [480, 280, 780, 430, 480],
-            scale: [1, 1.5, 0.6, 1.6, 1],
-          }}
-          transition={{
-            duration: 32,
-            repeat: Infinity,
-            ease: 'linear',
-          }}
+          animate={{ x: [580, 380, 880, 530, 580], y: [480, 280, sectionHeight - 100, 430, 480], scale: [1, 1.5, 0.6, 1.6, 1] }}
+          transition={{ duration: 32, repeat: Infinity, ease: 'linear' }}
         />
       </div>
 
@@ -250,7 +188,6 @@ const ContactSection: React.FC = () => {
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Contact Information Card */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -287,7 +224,7 @@ const ContactSection: React.FC = () => {
                   </div>
                   <div>
                     <p className="text-gray-400 text-sm">Location</p>
-                    <p className="text-white font-medium">Noida, India </p>
+                    <p className="text-white font-medium">Noida, India</p>
                   </div>
                 </div>
 
@@ -310,7 +247,7 @@ const ContactSection: React.FC = () => {
                     <SocialIcon
                       key={social.label}
                       icon={social.icon}
-                      href={social.href}  // Use the href from socialLinks
+                      href={social.href}
                       label={social.label}
                       color={social.color}
                     />
@@ -320,7 +257,6 @@ const ContactSection: React.FC = () => {
             </ContactCard>
           </motion.div>
 
-          {/* Contact Form Card */}
           <motion.div
             initial={{ opacity: 0, x: 50 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -342,7 +278,8 @@ const ContactSection: React.FC = () => {
                     value={formData.name}
                     onChange={handleInputChange}
                     required
-                    className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400 transition-colors"
+                    autoComplete="name"
+                    className="wn-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400 transition-colors"
                     placeholder="Your name"
                   />
                 </div>
@@ -358,6 +295,7 @@ const ContactSection: React.FC = () => {
                     value={formData.email}
                     onChange={handleInputChange}
                     required
+                    autoComplete="email"
                     className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400 transition-colors"
                     placeholder="your.email@example.com"
                   />
@@ -374,6 +312,7 @@ const ContactSection: React.FC = () => {
                     onChange={handleInputChange}
                     required
                     rows={5}
+                    autoComplete="off"
                     className="w-full px-4 py-3 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-purple-400 focus:ring-1 focus:ring-purple-400 transition-colors resize-none"
                     placeholder="Tell me about your project..."
                   />
@@ -398,4 +337,3 @@ const ContactSection: React.FC = () => {
 };
 
 export default ContactSection;
-
