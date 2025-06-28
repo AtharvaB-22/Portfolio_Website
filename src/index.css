@@ -173,3 +173,26 @@ a:focus-visible {
   transform: translateZ(0);
   will-change: transform;
 }
+
+nav {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  z-index: 50;
+  padding-top: 0.25rem; /* Reduced padding for smaller height */
+  padding-bottom: 0.25rem; /* Reduced padding for smaller height */
+}
+
+nav button {
+  color: #e5e7eb; /* Fixed light text color for contrast */
+}
+
+nav button:hover {
+  color: #f472b6; /* Pink-400 for hover consistency */
+}
+
+/* Ensure mobile menu is visible over content */
+.mobile-menu {
+  z-index: 60; /* Higher than nav z-index */
+  background-color: rgba(17, 24, 39, 0.9) !important; /* Consistent semi-transparent background */
+}

@@ -1,5 +1,4 @@
 import React from 'react';
-import Navigation from './Navigation';
 
 interface SectionWrapperProps {
   id: string;
@@ -8,8 +7,7 @@ interface SectionWrapperProps {
 
 const SectionWrapper: React.FC<SectionWrapperProps> = ({ id, children }) => {
   return (
-    <div id={id} className="min-h-screen">
-      <Navigation />
+    <div id={id} className="min-h-screen relative">
       {children}
     </div>
   );

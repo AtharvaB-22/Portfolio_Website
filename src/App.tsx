@@ -1,7 +1,5 @@
 import React from 'react';
-// import Lenis from '@studio-freight/lenis';
-// import { motion } from 'framer-motion';
-// import Navigation from './components/Navigation';
+import Navigation from './components/Navigation';
 import SectionWrapper from './components/SectionWrapper';
 import HomeSection from './components/HomeSection';
 import ProjectsSection from './components/ProjectsSection';
@@ -13,6 +11,7 @@ import './index.css';
 const App: React.FC = () => {
   return (
     <div>
+      <Navigation />
       <SectionWrapper id="home">
         <HomeSection />
       </SectionWrapper>
@@ -33,4 +32,3 @@ const App: React.FC = () => {
 };
 
 export default App;
-

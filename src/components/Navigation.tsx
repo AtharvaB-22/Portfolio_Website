@@ -22,10 +22,11 @@ const Navigation: React.FC = () => {
 
   return (
     <nav
-      className="z-50 bg-transparent backdrop-blur-md shadow-lg border-b border-gray-800/50 transition-all duration-300"
+      className="z-50 shadow-lg border-b border-gray-800/50 transition-all duration-300"
+      style={{ backgroundColor: 'rgba(17, 24, 39, 0.7)', height: '3.5rem' }} // Lightened and reduced height
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-12"> {/* Reduced height to h-12 */}
           {/* Hamburger Menu for Mobile */}
           <div className="lg:hidden">
             <button
@@ -74,9 +75,9 @@ const Navigation: React.FC = () => {
             initial={{ opacity: 0, x: '-100%' }}
             animate={{ opacity: isMenuOpen ? 1 : 0, x: isMenuOpen ? 0 : '-100%' }}
             transition={{ duration: 0.3 }}
-            className="fixed top-16 left-0 w-full bg-transparent backdrop-blur-md shadow-lg border-b border-gray-800/50 lg:hidden"
+            className="fixed top-12 left-0 w-full h-[calc(100vh-48px)] bg-gray-900/90 border-b border-gray-800/50 lg:hidden z-60"
           >
-            <div className="flex flex-col items-center space-y-4 py-4">
+            <div className="flex flex-col items-center space-y-4 py-4 h-full">
               {navigationItems.map((item, index) => (
                 <motion.button
                   key={item.name}
