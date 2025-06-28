@@ -3,30 +3,42 @@ import { motion } from 'framer-motion';
 
 const SkillsSection: React.FC = () => {
   const skillCategories = [
-    {
-      title: 'Programming Languages',
-      skills: ['JavaScript/TypeScript', 'Python', 'Java', 'C++']
-    },
-    {
-      title: 'Front-end',
-      skills: ['React.js', 'Next.js', 'Vue.js', 'Tailwind CSS', 'SASS', 'Material-UI']
-    },
-    {
-      title: 'Back-end',
-      skills: ['Node.js', 'Express.js', 'Django', 'Spring Boot', 'FastAPI', 'GraphQL']
-    },
-    {
-      title: 'Mobile Development',
-      skills: ['React Native', 'Flutter', 'Swift UI', 'Kotlin', 'Ionic', 'Xamarin']
-    },
-    {
-      title: 'Databases',
-      skills: ['PostgreSQL', 'MongoDB', 'MySQL', 'Redis', 'Firebase', 'Supabase']
-    },
-    {
-      title: 'DevOps & Cloud',
-      skills: ['AWS (EC2)', 'Docker', 'Kubernetes', 'CI/CD', 'Nginx', 'Linux']
-    }
+  {
+    title: 'Programming Languages',
+    skills: ['Python', 'JavaScript', 'C++', 'Java', 'SQL', 'Shell Scripting']
+  },
+  {
+    title: 'Front-end',
+    skills: ['React.js', 'Next.js', 'HTML5', 'CSS3', 'Tailwind CSS', 'Material-UI', 'Streamlit']
+  },
+  {
+    title: 'Back-end',
+    skills: ['Node.js', 'Express.js', 'Flask', 'Django', 'Convex', 'Inngest', 'Clerk', 'REST APIs']
+  },
+  {
+    title: 'Databases',
+    skills: ['MongoDB', 'MySQL', 'PostgreSQL', 'Pinecone']
+  },
+  {
+    title: 'DevOps & Cloud',
+    skills: ['Docker', 'Vercel', 'Linux', 'Azure Key Vault', 'Render']
+  },
+  {
+    title: 'Data Analysis & BI',
+    skills: ['Power BI', 'MS Excel', 'Pandas', 'NumPy', 'Tableau', 'DAX', 'Power Query']
+  },
+  {
+    title: 'AI & Machine Learning',
+    skills: ['LangChain', 'Gemini', 'NLP', 'RAG']
+  },
+  {
+    title: 'Soft Skills',
+    skills: ['Team Leadership', 'Project Coordination', 'Stakeholder Communication', 'Event Management']
+  },
+  {
+    title: 'Tools',
+    skills: ['Git', 'GitHub', 'Apache Airflow', 'Postman', 'Jira', 'Resend']
+  }
   ];
 
   const SkillCard = ({ category, index }: { category: any; index: number }) => {

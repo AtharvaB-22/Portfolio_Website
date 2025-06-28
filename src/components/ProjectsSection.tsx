@@ -54,6 +54,16 @@ const ProjectsSection: React.FC = () => {
       tech: ['LangChain', 'Gemini', 'Streamlit', 'Pinecone', 'Python-dotenv', 'Azure Key Vault'],
       category: 'AI',
       github: 'https://github.com/AtharvaB-22/Gen-AI-Projects',
+  },
+  {
+      id: 6,
+      title: 'Blinkit Sales Analysis',
+      description: 'Developed interactive Power BI dashboards to visualize Blinkit’s monthly sales, revealing a 25% weekend order spike and top product categories. Used MySQL for data extraction and transformation, enhancing metric accuracy.',
+      image: '/src/assets/project_6.png',
+      tech: ['Power BI', 'MySQL', 'MS Excel'],
+      category: 'Data Analysis',
+      github: '',
+      live: ''
   }
   ];
 
