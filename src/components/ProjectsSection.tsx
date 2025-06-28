@@ -21,41 +21,40 @@ const ProjectsSection: React.FC = () => {
     },
     {
       id: 2,
+      title: 'Claims Management System',
+      description: 'A MERN stack platform streamlining claims resolution with automated workflows, secure RBAC/JWT authentication, and Docker/AWS deployment for 99.8% uptime.',
+      image: '/src/assets/project_2.jpg',
+      tech: ['MongoDB', 'Express.js', 'React', 'Node.js', 'Docker', 'AWS', 'Vercel'],
+      category: 'Full Stack',
+      github: 'https://github.com/AtharvaB-22/Claims_Management_System',
+      live: 'https://cmsclientbatman.vercel.app/'
+    },
+    {
+      id: 3,
       title: 'GitHub Repo Analyzer',
       description: 'A comprehensive tool for analyzing GitHub repositories. It provides insights into repository metadata, commit patterns, contributor activity, language usage, and pull request stats through an intuitive web interface.',
-      image: 'https://images.pexels.com/photos/1181393/pexels-photo-1181393.jpeg?auto=compress&cs=tinysrgb&w=800',
+      image: '/src/assets/project_3.jpg',
       tech: ['Flask', 'React', 'Docker','Python'],
       category: 'Full Stack',
       github: 'https://github.com/AtharvaB-22/Github-Repo-Analyser',
     },
     {
-      id: 3,
-      title: 'Sales Analytics Dashboard',
-      description: 'A comprehensive data visualization platform that analyzes sales trends, customer behavior, and market insights using advanced analytics.',
-      image: 'https://images.pexels.com/photos/590022/pexels-photo-590022.jpeg?auto=compress&cs=tinysrgb&w=800',
-      tech: ['Python', 'Pandas', 'Plotly', 'Streamlit'],
-      category: 'Data Analysis'
-    },
+        id: 4,
+        title: 'Bank Customer Churn Analysis',
+        description: 'Built a dynamic Power BI dashboard to display customer churn rates by age, region, and account type, enabling retention strategies.',
+        image: '/src/assets/project_4.jpg',
+        tech: ['Power BI', 'MySQL','MsExcel'],
+        category: 'Data Analysis',
+  },
     {
-      id: 4,
-      title: 'Task Management App',
-      description: 'A collaborative task management application with real-time updates, drag-and-drop functionality, and team collaboration features.',
-      image: 'https://images.pexels.com/photos/3184298/pexels-photo-3184298.jpeg?auto=compress&cs=tinysrgb&w=800',
-      tech: ['Next.js', 'TypeScript', 'Prisma', 'Socket.io'],
-      category: 'Full Stack',
-      github: '#',
-      live: '#'
-    },
-    {
-      id: 6,
-      title: 'Predictive Analytics Model',
-      description: 'Machine learning model for predicting market trends and customer behavior using historical data and advanced algorithms.',
-      image: 'https://images.pexels.com/photos/590020/pexels-photo-590020.jpeg?auto=compress&cs=tinysrgb&w=800',
-      tech: ['Python', 'Scikit-learn', 'Jupyter', 'Matplotlib'],
+      id: 5,
+      title: 'GenAI Applications Suite',
+      description: 'Built 7+ GenAI tools, including an ATS Resume Matcher (85% accuracy), Invoice Extractor (90% precision), and PDF Q&A system with RAG and Pinecone, reducing research time by 70%.',
+      image: '/src/assets/project_5.jpg',
+      tech: ['LangChain', 'Gemini', 'Streamlit', 'Pinecone', 'Python-dotenv', 'Azure Key Vault'],
       category: 'AI',
-      github: '#',
-      live: '#'
-    }
+      github: 'https://github.com/AtharvaB-22/Gen-AI-Projects',
+  }
   ];
 
   const filteredProjects = activeCategory === 'All' 
