@@ -2,6 +2,11 @@ import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink, Github } from 'lucide-react';
 import project1Logo from '/src/assets/project_1.png';
+import project2Logo from '/src/assets/project_2.jpg';
+import project3Logo from '/src/assets/project_3.jpg';
+import project4Logo from '/src/assets/project_4.jpg';
+import project5Logo from '/src/assets/project_5.jpg';
+import project6Logo from '/src/assets/project_6.png';
 
 const ProjectsSection: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState('All');
@@ -24,7 +29,7 @@ const ProjectsSection: React.FC = () => {
       id: 2,
       title: 'Claims Management System',
       description: 'A MERN stack platform streamlining claims resolution with automated workflows, secure RBAC/JWT authentication, and Docker/AWS deployment for 99.8% uptime.',
-      image: '/src/assets/project_2.jpg',
+      image: project2Logo,
       tech: ['MongoDB', 'Express.js', 'React', 'Node.js', 'Docker', 'AWS', 'Vercel'],
       category: 'Full Stack',
       github: 'https://github.com/AtharvaB-22/Claims_Management_System',
@@ -34,7 +39,7 @@ const ProjectsSection: React.FC = () => {
       id: 3,
       title: 'GitHub Repo Analyzer',
       description: 'A comprehensive tool for analyzing GitHub repositories. It provides insights into repository metadata, commit patterns, contributor activity, language usage, and pull request stats through an intuitive web interface.',
-      image: '/src/assets/project_3.jpg',
+      image: project3Logo,
       tech: ['Flask', 'React', 'Docker','Python'],
       category: 'Full Stack',
       github: 'https://github.com/AtharvaB-22/Github-Repo-Analyser',
@@ -43,7 +48,7 @@ const ProjectsSection: React.FC = () => {
         id: 4,
         title: 'Bank Customer Churn Analysis',
         description: 'Built a dynamic Power BI dashboard to display customer churn rates by age, region, and account type, enabling retention strategies.',
-        image: '/src/assets/project_4.jpg',
+        image: project4Logo,
         tech: ['Power BI', 'MySQL','MsExcel'],
         category: 'Data Analysis',
   },
@@ -51,7 +56,7 @@ const ProjectsSection: React.FC = () => {
       id: 5,
       title: 'GenAI Applications Suite',
       description: 'Built 7+ GenAI tools, including an ATS Resume Matcher (85% accuracy), Invoice Extractor (90% precision), and PDF Q&A system with RAG and Pinecone, reducing research time by 70%.',
-      image: '/src/assets/project_5.jpg',
+      image: project5Logo,
       tech: ['LangChain', 'Gemini', 'Streamlit', 'Pinecone', 'Python-dotenv', 'Azure Key Vault'],
       category: 'AI',
       github: 'https://github.com/AtharvaB-22/Gen-AI-Projects',
@@ -60,7 +65,7 @@ const ProjectsSection: React.FC = () => {
       id: 6,
       title: 'Blinkit Sales Analysis',
       description: 'Developed interactive Power BI dashboards to visualize Blinkit’s monthly sales, revealing a 25% weekend order spike and top product categories. Used MySQL for data extraction and transformation, enhancing metric accuracy.',
-      image: '/src/assets/project_6.png',
+      image: project6Logo,
       tech: ['Power BI', 'MySQL', 'MS Excel'],
       category: 'Data Analysis',
       github: '',

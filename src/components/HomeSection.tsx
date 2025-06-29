@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
 import { Github, Linkedin, Instagram, Code } from 'lucide-react';
+import portfolioLogo from '/src/assets/Portfolio photo.png';
 
 const HomeSection: React.FC = () => {
   const ref = useRef<HTMLDivElement>(null);
@@ -313,7 +314,7 @@ const HomeSection: React.FC = () => {
               <div className="w-full h-full rounded-full bg-gradient-to-br from-blue-400 via-purple-500 to-pink-500 p-1">
                 <div className="w-full h-full rounded-full bg-black flex items-center justify-center text-8xl font-bold text-gray-200 overflow-hidden">
                   <img
-                    src="/src/assets/Portfolio photo.png"
+                    src={portfolioLogo}
                     alt="Profile"
                     className="w-full h-full object-cover rounded-full"
                   />
