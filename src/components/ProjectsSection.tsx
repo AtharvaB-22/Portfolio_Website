@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ExternalLink, Github } from 'lucide-react';
+import project1Logo from '/src/assets/project_1.png';
 
 const ProjectsSection: React.FC = () => {
   const [activeCategory, setActiveCategory] = useState('All');
@@ -13,7 +14,7 @@ const ProjectsSection: React.FC = () => {
       id: 1,
       title: 'Splitr',
       description: 'A robust full-stack expense tracking platform offering real-time monitoring, automated payment reminders, and secure user authentication. It supports efficient group expense management.',
-      image: '/src/assets/project_1.png',
+      image: project1Logo,
       tech: ['Next.js', 'Convex', 'Vercel', 'Clerk', 'Inngest', 'Resend', 'Tailwind CSS', 'Node.js'],
       category: 'Full Stack',
       github: 'https://github.com/AtharvaB-22/Splitr',
